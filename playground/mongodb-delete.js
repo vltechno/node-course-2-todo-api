@@ -28,7 +28,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
     // remove duplicated Users
     db.collection('Users').deleteMany({
       mwifename : 'Nguyen thi ngoc anh'
-    });
+    }).then;
   // db.close();
 
 });
