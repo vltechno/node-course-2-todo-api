@@ -14,7 +14,7 @@ var User = mongoose.model('User', {
     ,required: true
     ,minlength: 8
     ,trim: false
-    ,match: /\!{1}|\@{1}|\#{1}|\${1}|\%{1}|\^{1}|\&{1}|\*{1}|\({1}|\){1}|\_{1}|/ && /^[A-Z]{3}/
+    ,match: /^[A-Z]{3}.*\@|\!|\#|\$|\%|\^|\&|\*/
   }
 });
 
