@@ -55,39 +55,46 @@ app.post('/todos', (req, res) => {
   });
 });
 
-// app.post('/users',
-//   (req, res) => {
-//     var usr = new User({
-//       email: req.body.email // get content from client
-//       ,password: req.body.password // get content from client
-//     });
-//
-//     usr.save()
-//     .then((docs) => {
-//       console.log('Saved sucessfully with the following info');
-//       console.log(JSON.stringify(docs, undefined, 2));
-//       console.log('Send back to client');
-//       res.status(400).send(docs);
-//     },
-//     (err) => {
-//       // if error happened
-//       if(err) {
-//         console.log('Send back error to client');
-//         res.status(200).send(err.errors.password.message);
-//         return
-//           console.log('Unable to save with error: ', err);
-//       } else {
-//         console.log('Send back error to client');
-//         res.status(400).send(err);
-//       }
-//     });
-// });
+app.post('/users',
+  (req, res) => {
+    var usr = new User({
+      email: req.body.email // get content from client
+      ,password: req.body.password // get content from client
+    });
+
+    usr.save()
+    .then((docs) => {
+      console.log('Saved sucessfully with the following info');
+      console.log(JSON.stringify(docs, undefined, 2));
+      console.log('Send back to client');
+      res.status(400).send(docs);
+    },
+    (err) => {
+      // if error happened
+      if(err) {
+        console.log('Send back error to client');
+        res.status(200).send(err.errors.password.message);
+        return
+          console.log('Unable to save with error: ', err);
+      } else {
+        console.log('Send back error to client');
+        res.status(400).send(err);
+      }
+    });
+});
+
+app.get('/todos',(req, res) => {
+  Todo.find().then((todos) => {
+    res.send({todos});
+  },(err) => {
+    res.status(400).send(err);
+  });
+});
+
 
 app.listen(3000, (err) => {
-  if (err) { return console.log('Unable to connect to client wiht this notification ', err);}
+  if (err) { return console.log('Unable to connect to client wiht this notification', err);}
   console.log('started on port 3000');
 });
 
-module.exports = {
-  app : app,
-}
+module.exports = {app}
