@@ -48,9 +48,6 @@ app.post('/todos', (req, res) => {
       res.status(400).send(err);
       return
         console.log('Unable to save with error: ', err);
-    } else {
-      console.log('Send back error to client');
-      res.status(200).send(err);
     }
   });
 });
@@ -67,18 +64,15 @@ app.post('/users',
       console.log('Saved sucessfully with the following info');
       console.log(JSON.stringify(docs, undefined, 2));
       console.log('Send back to client');
-      res.status(400).send(docs);
+      res.status(200).send(docs);
     },
     (err) => {
       // if error happened
       if(err) {
         console.log('Send back error to client');
-        res.status(200).send(err.errors.password.message);
+        res.status(400).send(err.errors.password.message);
         return
           console.log('Unable to save with error: ', err);
-      } else {
-        console.log('Send back error to client');
-        res.status(400).send(err);
       }
     });
 });
