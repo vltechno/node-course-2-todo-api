@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} =  require('./models/todo');
@@ -85,6 +86,26 @@ app.get('/todos',(req, res) => {
   });
 });
 
+app.get('/todos/:id',(req, res) => {
+  var id =  req.params.id;
+  if(!ObjectID.isValid(id)) {
+    res.status(404).send('The id is not valid');
+    return console.log('Id is %s not valid', id);
+  }
+  Todo.findById(id).then((todo) => {
+    if(todo === null) {
+      return res.status(400).send('The ID is not found');
+    }else {
+      // return text
+      //res.send(JSON.stringify(todo, undefined, 2));
+      // return obj
+      res.send(todo);
+    }
+  },(err) => {
+    // res.status(400).send('Something wrong with the ID');
+    res.status(400).send('Something wrong with the ID');
+  });
+})
 
 app.listen(3000, (err) => {
   if (err) { return console.log('Unable to connect to client wiht this notification', err);}
