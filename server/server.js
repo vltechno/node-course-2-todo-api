@@ -24,6 +24,9 @@ var {Todo} =  require('./models/todo');
 // });
 // end model
 
+// deploy heroku
+const port = process.env.PORT || 3000;
+
 var {User} =  require('./models/user');
 
 var app = express();
@@ -104,9 +107,9 @@ app.get('/todos/:id',(req, res) => {
   });
 })
 
-app.listen(3000, (err) => {
+app.listen(port, (err) => {
   if (err) { return console.log('Unable to connect to client wiht this notification', err);}
-  console.log('started on port 3000');
+  console.log('started on port %d', port);
 });
 
 module.exports = {app}
