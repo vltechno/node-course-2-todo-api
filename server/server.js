@@ -95,12 +95,9 @@ app.get('/todos/:id',(req, res) => {
   Todo.findById(id).then((todo) => {
     if(todo === null) {
       return res.status(400).send('The ID is not found');
-    }else {
-      // return text
-      //res.send(JSON.stringify(todo, undefined, 2));
-      // return obj
-      res.send(todo);
     }
+      // console.log('here !!'+ todo);
+      res.status(200).send(todo);
   },(err) => {
     // res.status(400).send('Something wrong with the ID');
     res.status(400).send('Something wrong with the ID');

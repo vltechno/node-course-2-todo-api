@@ -3,14 +3,16 @@ const request = require('supertest');
 
 const {app} = require('./../server');
 const {Todo} = require('./../models/todo');
-
+const {ObjectID} = require('mongodb');
 
 const todos = [
   {
-    text : 'vinh'
+    _id : new ObjectID
+    ,text : 'vinh'
   }
   ,{
-    text : 'sinh'
+    _id: new ObjectID
+    ,text : 'sinh'
   }
 ];
 
@@ -65,3 +67,19 @@ describe('POST /todos', () => {
     });
   });
 }); // end describe
+
+describe('GET todos/:id', () => {
+  it('should send back todo obj', (done) => {
+  //  var id = '5a5103ba86ffca9c3a6dfdb0';
+    // console.log(todos[0]._id.toHexString());
+    request(app)
+    .get('/todos/'+ todos[0]._id.toHexString())
+    .expect((res) => {
+      expect(res.body.text).toBe(todos[0].text);
+    })
+    .end((err, res) => {
+      if(err) {return done(err);}
+      done();
+    });
+  });
+});
