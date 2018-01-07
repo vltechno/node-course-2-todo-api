@@ -26,7 +26,7 @@ var {Todo} =  require('./models/todo');
 
 // deploy heroku
 const port = process.env.PORT || 3000;
-
+//https://still-mountain-85936.herokuapp.com/todos
 var {User} =  require('./models/user');
 
 var app = express();
@@ -84,6 +84,14 @@ app.post('/users',
 app.get('/todos',(req, res) => {
   Todo.find().then((todos) => {
     res.send({todos});
+  },(err) => {
+    res.status(400).send(err);
+  });
+});
+
+app.get('/users',(req, res) => {
+  Todo.find().then((users) => {
+    res.send({users});
   },(err) => {
     res.status(400).send(err);
   });
