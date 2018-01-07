@@ -4,6 +4,7 @@ const {ObjectID} = require('mongodb');
 
 var {mongoose} = require('./db/mongoose');
 var {Todo} =  require('./models/todo');
+var {User} =  require('./models/todo');
 // is same as
 // model
 // var Todo = mongoose.model('Todo', {
@@ -90,7 +91,7 @@ app.get('/todos',(req, res) => {
 });
 
 app.get('/users',(req, res) => {
-  Todo.find().then((users) => {
+  User.find().then((users) => {
     res.send({users});
   },(err) => {
     res.status(400).send(err);
