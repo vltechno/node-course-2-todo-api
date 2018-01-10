@@ -9,6 +9,8 @@ const todos = [
   {
     _id : new ObjectID
     ,text : 'vinh'
+    ,completed: true
+    ,completedAt: 222
   }
   ,{
     _id: new ObjectID
@@ -98,6 +100,23 @@ describe('Delete todos/:id', () => {
       Todo.findById(id).then((todo) => {
         expect(todo).toBe(null);
       }).catch((e) => done(e));
+      done();
+    });
+  });
+});
+
+describe('Patch todos/:id', () => {
+  var id = todos[0]._id.toHexString()
+  it('should update new a todo', (done) => {
+    request(app)
+    .patch('/todos/'+ id)
+    .send({completed: false, text: "VLTECHNO"})
+    .expect(200)
+    .expect((res) => {
+      expect(res.body.completed).toBe(false);
+    }).end((err, res) => {
+      if(err) {return done(err);}
+
       done();
     });
   });
